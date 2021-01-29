@@ -23,7 +23,6 @@ function createApolloClient() {
     ssrMode: !isBrowser,
     link: httpLink,
     cache: new InMemoryCache(),
-    connectToDevTools: isBrowser,
   });
 }
 

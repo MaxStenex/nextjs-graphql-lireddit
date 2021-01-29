@@ -1,15 +1,21 @@
 import Link from "next/link";
+import { useHelloQuery } from "../generated/apolloComponents";
 
-const Hello = () => (
-  <div>
-    <h1>About</h1>
-    <p>This is the hello page</p>
-    <p>
-      <Link href="/">
-        <a>Go home</a>
-      </Link>
-    </p>
-  </div>
-);
+const Hello = () => {
+  const { data } = useHelloQuery();
+
+  return (
+    <div>
+      <h1>Hello {`:)`}</h1>
+      <p>This is the hello page</p>
+      <p>
+        <Link href="/">
+          <a>Go home</a>
+        </Link>
+      </p>
+      {data && <div>{data.helloWorld}</div>}
+    </div>
+  );
+};
 
 export default Hello;
