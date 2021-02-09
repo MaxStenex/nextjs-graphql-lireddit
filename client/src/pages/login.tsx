@@ -1,7 +1,8 @@
+import React from "react";
 import { Header } from "../components/shared/Header";
-import { Main } from "../components/Home/Main";
+import { Main } from "../components/Login/Main";
 
-const Home = () => {
+const Login = () => {
   return (
     <>
       <Header />
@@ -10,4 +11,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Login;

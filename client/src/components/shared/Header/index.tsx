@@ -4,12 +4,12 @@ import {
   Logo,
   SearchInput,
   OptionsWrapper,
-  LoginLink,
-  SignupLink,
+  LoginButton,
+  SignupButton,
 } from "./styled";
 import NextLink from "next/link";
 
-const Header = () => {
+export const Header = () => {
   return (
     <Wrapper>
       <NextLink href="/">
@@ -17,15 +17,13 @@ const Header = () => {
       </NextLink>
       <SearchInput type="text" placeholder="Search..." />
       <OptionsWrapper>
-        <NextLink href="/">
-          <LoginLink>Log In</LoginLink>
+        <NextLink href="/login">
+          <LoginButton role="a">Log In</LoginButton>
         </NextLink>
-        <NextLink href="/">
-          <SignupLink> Sign Up</SignupLink>
+        <NextLink href="/register">
+          <SignupButton role="a"> Sign Up</SignupButton>
         </NextLink>
       </OptionsWrapper>
     </Wrapper>
   );
 };
-
-export default Header;
