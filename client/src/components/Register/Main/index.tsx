@@ -7,29 +7,31 @@ import {
   Form,
   Input,
   SubmitButton,
-  ToRegister,
+  ToLogin,
   Error,
 } from "./styled";
-import { ErrorMessage, Formik } from "formik";
-import { loginSchema } from "../../../utils/validaton/login";
+import { Formik, ErrorMessage } from "formik";
+import { registerSchema } from "../../../utils/validaton/register";
 
 export const Main = () => {
   return (
     <Section>
       <Container>
-        <Title>Login</Title>
+        <Title>Sign up</Title>
         <Sutbitle>
           By continuing, you agree to our User Agreement and Privacy Policy.
         </Sutbitle>
         <Formik
-          initialValues={{ username: "", password: "" }}
-          validationSchema={loginSchema}
+          initialValues={{ email: "", username: "", password: "", confirmPassword: "" }}
+          validationSchema={registerSchema}
           onSubmit={(values) => {
             console.log(values);
           }}
         >
           {({ getFieldProps }) => (
             <Form>
+              <Input {...getFieldProps("email")} type="email" placeholder="email" />
+              <ErrorMessage name="email">{(msg) => <Error>{msg}</Error>}</ErrorMessage>
               <Input {...getFieldProps("username")} type="text" placeholder="username" />
               <ErrorMessage name="username">{(msg) => <Error>{msg}</Error>}</ErrorMessage>
               <Input
@@ -38,13 +40,21 @@ export const Main = () => {
                 placeholder="password"
               />
               <ErrorMessage name="password">{(msg) => <Error>{msg}</Error>}</ErrorMessage>
-              <SubmitButton type="submit">log in</SubmitButton>
+              <Input
+                {...getFieldProps("confirmPassword")}
+                type="password"
+                placeholder="confirm password"
+              />
+              <ErrorMessage name="confirmPassword">
+                {(msg) => <Error>{msg}</Error>}
+              </ErrorMessage>
+              <SubmitButton type="submit">Sign up</SubmitButton>
             </Form>
           )}
         </Formik>
-        <ToRegister>
-          New to Reddit? <a href="/register">SIGN UP</a>
-        </ToRegister>
+        <ToLogin>
+          Already a redditor? <a href="/login">LOG IN</a>
+        </ToLogin>
       </Container>
     </Section>
   );

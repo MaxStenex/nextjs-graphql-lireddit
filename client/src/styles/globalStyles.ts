@@ -20,6 +20,8 @@ export const GlobalStyle = createGlobalStyle`
 
   a {
     text-decoration:none;
+    color:initial;
+
     &:focus,
     &:active {
       outline: none;
@@ -32,6 +34,9 @@ export const GlobalStyle = createGlobalStyle`
   button {
     border:none;
     cursor: pointer;
+    &:focus{
+      outline:none;
+    }
   }
 
   input {

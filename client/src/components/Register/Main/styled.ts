@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { Form as FormikForm } from "formik";
-import { PrimaryButton } from "../../../styles/shared/PrimaryButton";
 import { DefaultInput } from "../../../styles/shared/DefaultInput";
+import { PrimaryButton } from "../../../styles/shared/PrimaryButton";
+import { Form as FormikForm } from "formik";
 
 export const Section = styled.section`
   margin: 0 auto;
@@ -48,7 +48,7 @@ export const SubmitButton = styled(PrimaryButton)`
   text-transform: uppercase;
 `;
 
-export const ToRegister = styled.div`
+export const ToLogin = styled.div`
   font-size: 14px;
   & a {
     color: ${(props) => props.theme.bg.primary};

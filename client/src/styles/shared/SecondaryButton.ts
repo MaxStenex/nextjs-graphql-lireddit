@@ -9,7 +9,8 @@ export const SecondaryButton = styled.button`
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  &:hover {
+  &:hover,
+  &:focus {
     transition: 0.2s;
     background-color: #d6e6ff;
   }
