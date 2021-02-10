@@ -7,11 +7,15 @@
   },
   "dependencies": {
     "apollo-server-express": "^2.19.2",
+    "argon2": "^0.27.1",
+    "class-validator": "^0.13.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "graphql": "^15.5.0",
+    "pg": "^8.5.1",
     "reflect-metadata": "^0.1.13",
-    "type-graphql": "^1.1.1"
+    "type-graphql": "^1.1.1",
+    "typeorm": "^0.2.31"
   },
   "devDependencies": {
     "@types/express": "^4.17.11",

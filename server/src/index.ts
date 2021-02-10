@@ -2,25 +2,21 @@ import "reflect-metadata";
 import express from "express";
 import cors from "cors";
 import { ApolloServer } from "apollo-server-express";
-import { buildSchema, Query, Resolver } from "type-graphql";
-
-@Resolver()
-class HelloResolver {
-  @Query(() => String)
-  async helloWorld() {
-    return "Hello, world!";
-  }
-}
+import { buildSchema } from "type-graphql";
+import { createConnection } from "typeorm";
+import { RegisterResolver } from "./graphql/resolvers/user/register";
 
 const main = async () => {
+  await createConnection();
+
   const schema = await buildSchema({
-    resolvers: [HelloResolver],
+    resolvers: [RegisterResolver],
   });
 
   const server = new ApolloServer({ schema });
   const app = express();
-  app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 
+  app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
   server.applyMiddleware({ app, cors: false });
 
   app.listen({ port: 4000 }, () =>
