@@ -1,6 +1,7 @@
 import { IsEmail, MinLength, MaxLength } from "class-validator";
 import { Field, InputType } from "type-graphql";
 import { IsEmailAlreadyExist } from "../../utils/isEmailAlreadyExist";
+import { IsUsernameAlreadyExist } from "../../utils/isUsernameAlreadyExist";
 
 @InputType()
 export class RegisterInput {
@@ -9,6 +10,7 @@ export class RegisterInput {
   @Field()
   email: string;
 
+  @IsUsernameAlreadyExist({ message: "Username already used" })
   @MinLength(3, {
     message: "Minimum username length is 3",
   })

@@ -9,11 +9,16 @@ import {
   SubmitButton,
   ToLogin,
   Error,
+  SuccessMessage,
 } from "./styled";
 import { Formik, ErrorMessage } from "formik";
 import { registerSchema } from "../../../utils/validaton/register";
+import { useRegisterMutation } from "../../../generated/apollo";
+import { graphqlErrorToMap } from "../../../utils/validaton/graphqlErrorToMap";
 
 export const Main = () => {
+  const [register] = useRegisterMutation();
+
   return (
     <Section>
       <Container>
@@ -24,11 +29,30 @@ export const Main = () => {
         <Formik
           initialValues={{ email: "", username: "", password: "", confirmPassword: "" }}
           validationSchema={registerSchema}
-          onSubmit={(values) => {
-            console.log(values);
+          onSubmit={async (
+            { email, username, password },
+            { setErrors, setStatus, resetForm }
+          ) => {
+            try {
+              setStatus();
+              await register({
+                variables: { input: { email, username, password } },
+              });
+              resetForm();
+              setStatus({ success: "Registrated successfully" });
+            } catch (error) {
+              const isValidationErrors = error.graphQLErrors[0].message.match(
+                /Validation/i
+              );
+
+              if (isValidationErrors) {
+                const errors = graphqlErrorToMap(error.graphQLErrors[0]);
+                setErrors(errors);
+              }
+            }
           }}
         >
-          {({ getFieldProps }) => (
+          {({ getFieldProps, status }) => (
             <Form>
               <Input {...getFieldProps("email")} type="email" placeholder="email" />
               <ErrorMessage name="email">{(msg) => <Error>{msg}</Error>}</ErrorMessage>
@@ -49,6 +73,9 @@ export const Main = () => {
                 {(msg) => <Error>{msg}</Error>}
               </ErrorMessage>
               <SubmitButton type="submit">Sign up</SubmitButton>
+              {status && status.success && (
+                <SuccessMessage>{status.success}</SuccessMessage>
+              )}
             </Form>
           )}
         </Formik>

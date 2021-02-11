@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useHelloQuery } from "../generated/apolloComponents";
+import { useHelloQuery } from "../generated/apollo";
 
 const Hello = () => {
   const { data } = useHelloQuery();

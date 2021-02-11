@@ -62,5 +62,11 @@ export const ToLogin = styled.div`
 export const Error = styled.div`
   color: #ea0027;
   font-size: 14px;
-  margin-bottom: 10px;
+  margin: 0px 0px 10px 10px;
+`;
+
+export const SuccessMessage = styled.div`
+  color: green;
+  font-size: 14px;
+  margin: 10px 0px 0px 5px;
 `;
