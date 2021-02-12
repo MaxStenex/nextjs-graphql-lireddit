@@ -1,6 +1,10 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
+  #nprogress .bar{
+    height:4px;
+  }
+
   html * {
     padding: 0;
     margin: 0;
