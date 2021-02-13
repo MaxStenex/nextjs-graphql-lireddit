@@ -5,17 +5,23 @@ export const Wrapper = styled.div`
   position: relative;
 `;
 
-export const OpenOptionsButton = styled.button`
+export const OpenOptionsButton = styled.button<{ isAuthed: boolean }>`
   background-color: transparent;
   display: flex;
-  align-items: center;
   padding: 3px 15px;
   border: 1px solid transparent;
   border-radius: 3px;
+  align-items: center;
+  ${(props) => props.isAuthed && "min-width:180px;"}
   &:hover {
     border: 1px solid #ccc;
     transition: 0.2s;
   }
+`;
+
+export const UserName = styled.div`
+  font-size: 14px;
+  margin-left: 5px;
 `;
 
 export const OpenOptionsImage = styled.img`
@@ -25,7 +31,7 @@ export const OpenOptionsImage = styled.img`
 export const Popup = styled.div`
   position: absolute;
   background-color: #fff;
-  min-width: 200px;
+  min-width: 180px;
   width: 100%;
   right: 0;
   top: calc(100% + 5px);
@@ -70,7 +76,7 @@ export const OptionText = styled.span`
 export const PopupFooter = styled.div``;
 
 export const PopupFooterLink = styled.a`
-  padding: 7px 10px;
+  padding: 10px;
   width: 100%;
   background-color: transparent;
   border-top: 1px solid #ccc;

@@ -14,9 +14,14 @@ import {
   OptionText,
   PopupFooterText,
   PopupFooterIcon,
+  UserName,
 } from "./styled";
 
-export const Options = () => {
+type Props = {
+  username: string | null;
+};
+
+export const Options: React.FC<Props> = ({ username }) => {
   const [popupOpened, setPopupOpened] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
 
@@ -35,11 +40,21 @@ export const Options = () => {
 
   return (
     <Wrapper>
-      <OpenOptionsButton onClick={() => setPopupOpened(!popupOpened)}>
-        <OpenOptionsImage
-          src={require("../../../../images/Header/settings.svg")}
-          alt="Options"
-        />
+      <OpenOptionsButton
+        isAuthed={!!username}
+        onClick={() => setPopupOpened(!popupOpened)}
+      >
+        {username ? (
+          <>
+            <OpenOptionsImage src={require("../../../../images/Header/user.svg")} />
+            <UserName>{username}</UserName>
+          </>
+        ) : (
+          <OpenOptionsImage
+            src={require("../../../../images/Header/settings.svg")}
+            alt="Options"
+          />
+        )}
       </OpenOptionsButton>
       {popupOpened && (
         <Popup ref={popupRef}>

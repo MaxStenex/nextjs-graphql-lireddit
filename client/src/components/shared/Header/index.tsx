@@ -9,8 +9,12 @@ import {
 } from "./styled";
 import NextLink from "next/link";
 import { Options } from "./Options";
+import { useMeQuery } from "../../../generated/apollo";
 
 export const Header = () => {
+  const { data } = useMeQuery();
+  const username = data?.me.username || null;
+
   return (
     <Wrapper>
       <NextLink href="/">
@@ -18,13 +22,17 @@ export const Header = () => {
       </NextLink>
       <SearchInput type="text" placeholder="Search..." />
       <OptionsWrapper>
-        <NextLink href="/login">
-          <LoginButton role="a">Log In</LoginButton>
-        </NextLink>
-        <NextLink href="/register">
-          <SignupButton role="a"> Sign Up</SignupButton>
-        </NextLink>
-        <Options />
+        {!data?.me && (
+          <>
+            <NextLink href="/login">
+              <LoginButton role="a">Log In</LoginButton>
+            </NextLink>
+            <NextLink href="/register">
+              <SignupButton role="a"> Sign Up</SignupButton>
+            </NextLink>
+          </>
+        )}
+        <Options username={username} />
       </OptionsWrapper>
     </Wrapper>
   );
