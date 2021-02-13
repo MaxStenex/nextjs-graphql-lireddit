@@ -8,6 +8,7 @@ import {
   SignupButton,
 } from "./styled";
 import NextLink from "next/link";
+import { Options } from "./Options";
 
 export const Header = () => {
   return (
@@ -23,6 +24,7 @@ export const Header = () => {
         <NextLink href="/register">
           <SignupButton role="a"> Sign Up</SignupButton>
         </NextLink>
+        <Options />
       </OptionsWrapper>
     </Wrapper>
   );

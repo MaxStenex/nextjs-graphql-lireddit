@@ -64,3 +64,7 @@ export const Error = styled.div`
   font-size: 14px;
   margin-bottom: 10px;
 `;
+
+export const ResponseError = styled(Error)`
+  margin: 5px 0px 0px 0px;
+`;
