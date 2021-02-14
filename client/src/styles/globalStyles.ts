@@ -49,4 +49,10 @@ export const GlobalStyle = createGlobalStyle`
       outline: none;
     }
   }
+
+  textarea{
+    &:focus {
+      outline: none;
+    }
+  }
 `;

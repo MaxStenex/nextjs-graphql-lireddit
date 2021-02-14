@@ -2,10 +2,11 @@ import styled from "styled-components";
 import { Form as FormikForm } from "formik";
 import { PrimaryButton } from "../../../styles/shared/PrimaryButton";
 import { DefaultInput } from "../../../styles/shared/DefaultInput";
+import { SectionUnderHeader } from "../../../styles/shared/SectionUnderHeader";
+import { FormErrorMessage } from "../../../styles/shared/FormErrorMessage";
 
-export const Section = styled.section`
+export const Section = styled(SectionUnderHeader)`
   margin: 0 auto;
-  margin-top: 100px;
   margin-bottom: 50px;
   max-width: 500px;
   padding-top: 60px;
@@ -59,9 +60,7 @@ export const ToRegister = styled.div`
   }
 `;
 
-export const Error = styled.div`
-  color: #ea0027;
-  font-size: 14px;
+export const Error = styled(FormErrorMessage)`
   margin-bottom: 10px;
 `;
 

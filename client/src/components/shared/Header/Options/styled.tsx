@@ -13,7 +13,8 @@ export const OpenOptionsButton = styled.button<{ isAuthed: boolean }>`
   border-radius: 3px;
   align-items: center;
   ${(props) => props.isAuthed && "min-width:180px;"}
-  &:hover {
+  &:hover,
+  &:focus {
     border: 1px solid #ccc;
     transition: 0.2s;
   }
@@ -94,4 +95,16 @@ export const PopupFooterText = styled.span`
 export const PopupFooterIcon = styled.img`
   height: 20px;
   margin-right: 5px;
+`;
+
+export const LogoutButton = styled.button`
+  padding: 10px;
+  width: 100%;
+  background-color: transparent;
+  border-top: 1px solid #ccc;
+  display: flex;
+  &:hover {
+    background-color: #0079d3;
+    color: #fff;
+  }
 `;

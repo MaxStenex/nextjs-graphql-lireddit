@@ -15,6 +15,7 @@ import {
   PopupFooterText,
   PopupFooterIcon,
   UserName,
+  LogoutButton,
 } from "./styled";
 
 type Props = {
@@ -46,7 +47,7 @@ export const Options: React.FC<Props> = ({ username }) => {
       >
         {username ? (
           <>
-            <OpenOptionsImage src={require("../../../../images/Header/user.svg")} />
+            <OpenOptionsImage src={require("../../../../images/user.svg")} />
             <UserName>{username}</UserName>
           </>
         ) : (
@@ -75,14 +76,23 @@ export const Options: React.FC<Props> = ({ username }) => {
             </OptionList>
           </OptionsBlock>
           <PopupFooter>
-            <Link href="/register">
-              <PopupFooterLink>
+            {username ? (
+              <LogoutButton>
                 <PopupFooterIcon
                   src={require("../../../../images/Header/signup.svg")}
                 ></PopupFooterIcon>
-                <PopupFooterText>Sign up</PopupFooterText>
-              </PopupFooterLink>
-            </Link>
+                <PopupFooterText>Logout</PopupFooterText>
+              </LogoutButton>
+            ) : (
+              <Link href="/register">
+                <PopupFooterLink>
+                  <PopupFooterIcon
+                    src={require("../../../../images/Header/signup.svg")}
+                  />
+                  <PopupFooterText>Sign up</PopupFooterText>
+                </PopupFooterLink>
+              </Link>
+            )}
           </PopupFooter>
         </Popup>
       )}
