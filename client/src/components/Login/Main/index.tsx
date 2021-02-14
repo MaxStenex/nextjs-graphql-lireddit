@@ -30,7 +30,7 @@ export const Main = () => {
         <Formik
           initialValues={{ username: "", password: "" }}
           validationSchema={loginSchema}
-          onSubmit={async ({ username, password }, { setStatus, resetForm }) => {
+          onSubmit={async ({ username, password }, { setStatus }) => {
             try {
               await login({ variables: { username, password } });
               router.push("/");

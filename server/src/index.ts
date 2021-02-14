@@ -11,12 +11,20 @@ import { createConnection } from "typeorm";
 import { RegisterResolver } from "./graphql/resolvers/user/register";
 import { LoginResolver } from "./graphql/resolvers/user/login";
 import { MeResolver } from "./graphql/resolvers/user/me";
+import { CreatePostResolver } from "./graphql/resolvers/posts/createPost";
+import { PostsResolver } from "./graphql/resolvers/posts/posts";
 
 const main = async () => {
   await createConnection();
 
   const schema = await buildSchema({
-    resolvers: [RegisterResolver, LoginResolver, MeResolver],
+    resolvers: [
+      RegisterResolver,
+      LoginResolver,
+      MeResolver,
+      PostsResolver,
+      CreatePostResolver,
+    ],
   });
 
   const server = new ApolloServer({ schema, context: ({ req }) => ({ req }) });

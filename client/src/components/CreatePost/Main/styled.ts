@@ -4,6 +4,7 @@ import { Form } from "formik";
 import { DefaultInput } from "../../../styles/shared/DefaultInput";
 import { PrimaryButton } from "../../../styles/shared/PrimaryButton";
 import { FormErrorMessage } from "../../../styles/shared/FormErrorMessage";
+import { SuccessMessage } from "../../../styles/shared/SuccessMessage";
 
 export const Wrapper = styled.main`
   max-width: 700px;
@@ -55,6 +56,11 @@ export const SubmitButton = styled(PrimaryButton)`
 `;
 
 export const Error = styled(FormErrorMessage)`
+  margin-bottom: 10px;
+  margin-left: 5px;
+`;
+
+export const Success = styled(SuccessMessage)`
   margin-bottom: 10px;
   margin-left: 5px;
 `;

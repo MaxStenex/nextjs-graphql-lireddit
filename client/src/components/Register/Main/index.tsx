@@ -9,7 +9,7 @@ import {
   SubmitButton,
   ToLogin,
   Error,
-  SuccessMessage,
+  Success,
 } from "./styled";
 import { Formik, ErrorMessage } from "formik";
 import { registerSchema } from "../../../utils/validaton/register";
@@ -73,9 +73,7 @@ export const Main = () => {
                 {(msg) => <Error>{msg}</Error>}
               </ErrorMessage>
               <SubmitButton type="submit">Sign up</SubmitButton>
-              {status && status.success && (
-                <SuccessMessage>{status.success}</SuccessMessage>
-              )}
+              {status && status.success && <Success>{status.success}</Success>}
             </Form>
           )}
         </Formik>

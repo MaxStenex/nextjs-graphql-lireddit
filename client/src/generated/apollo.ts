@@ -19,6 +19,7 @@ export type Query = {
   __typename?: "Query";
   helloWorld: Scalars["String"];
   me: User;
+  posts: Array<Post>;
 };
 
 export type User = {
@@ -28,10 +29,18 @@ export type User = {
   username: Scalars["String"];
 };
 
+export type Post = {
+  __typename?: "Post";
+  id: Scalars["Float"];
+  title: Scalars["String"];
+  text: Scalars["String"];
+};
+
 export type Mutation = {
   __typename?: "Mutation";
   register: User;
   login: User;
+  createPost: Post;
 };
 
 export type MutationRegisterArgs = {
@@ -43,10 +52,24 @@ export type MutationLoginArgs = {
   username: Scalars["String"];
 };
 
+export type MutationCreatePostArgs = {
+  text: Scalars["String"];
+  title: Scalars["String"];
+};
+
 export type RegisterInput = {
   email: Scalars["String"];
   username: Scalars["String"];
   password: Scalars["String"];
+};
+
+export type CreatePostMutationVariables = Exact<{
+  title: Scalars["String"];
+  text: Scalars["String"];
+}>;
+
+export type CreatePostMutation = { __typename?: "Mutation" } & {
+  createPost: { __typename?: "Post" } & Pick<Post, "id" | "title" | "text">;
 };
 
 export type LoginMutationVariables = Exact<{
@@ -66,16 +89,61 @@ export type RegisterMutation = { __typename?: "Mutation" } & {
   register: { __typename?: "User" } & Pick<User, "id" | "email" | "username">;
 };
 
-export type HelloQueryVariables = Exact<{ [key: string]: never }>;
-
-export type HelloQuery = { __typename?: "Query" } & Pick<Query, "helloWorld">;
-
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MeQuery = { __typename?: "Query" } & {
   me: { __typename?: "User" } & Pick<User, "id" | "email" | "username">;
 };
 
+export const CreatePostDocument = gql`
+  mutation CreatePost($title: String!, $text: String!) {
+    createPost(title: $title, text: $text) {
+      id
+      title
+      text
+    }
+  }
+`;
+export type CreatePostMutationFn = Apollo.MutationFunction<
+  CreatePostMutation,
+  CreatePostMutationVariables
+>;
+
+/**
+ * __useCreatePostMutation__
+ *
+ * To run a mutation, you first call `useCreatePostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPostMutation, { data, loading, error }] = useCreatePostMutation({
+ *   variables: {
+ *      title: // value for 'title'
+ *      text: // value for 'text'
+ *   },
+ * });
+ */
+export function useCreatePostMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreatePostMutation,
+    CreatePostMutationVariables
+  >
+) {
+  return Apollo.useMutation<CreatePostMutation, CreatePostMutationVariables>(
+    CreatePostDocument,
+    baseOptions
+  );
+}
+export type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutation>;
+export type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
+export type CreatePostMutationOptions = Apollo.BaseMutationOptions<
+  CreatePostMutation,
+  CreatePostMutationVariables
+>;
 export const LoginDocument = gql`
   mutation Login($username: String!, $password: String!) {
     login(username: $username, password: $password) {
@@ -167,40 +235,6 @@ export type RegisterMutationOptions = Apollo.BaseMutationOptions<
   RegisterMutation,
   RegisterMutationVariables
 >;
-export const HelloDocument = gql`
-  query Hello {
-    helloWorld
-  }
-`;
-
-/**
- * __useHelloQuery__
- *
- * To run a query within a React component, call `useHelloQuery` and pass it any options that fit your needs.
- * When your component renders, `useHelloQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useHelloQuery({
- *   variables: {
- *   },
- * });
- */
-export function useHelloQuery(
-  baseOptions?: Apollo.QueryHookOptions<HelloQuery, HelloQueryVariables>
-) {
-  return Apollo.useQuery<HelloQuery, HelloQueryVariables>(HelloDocument, baseOptions);
-}
-export function useHelloLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<HelloQuery, HelloQueryVariables>
-) {
-  return Apollo.useLazyQuery<HelloQuery, HelloQueryVariables>(HelloDocument, baseOptions);
-}
-export type HelloQueryHookResult = ReturnType<typeof useHelloQuery>;
-export type HelloLazyQueryHookResult = ReturnType<typeof useHelloLazyQuery>;
-export type HelloQueryResult = Apollo.QueryResult<HelloQuery, HelloQueryVariables>;
 export const MeDocument = gql`
   query Me {
     me {

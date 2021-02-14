@@ -4,6 +4,7 @@ import { PrimaryButton } from "../../../styles/shared/PrimaryButton";
 import { Form as FormikForm } from "formik";
 import { SectionUnderHeader } from "../../../styles/shared/SectionUnderHeader";
 import { FormErrorMessage } from "../../../styles/shared/FormErrorMessage";
+import { SuccessMessage } from "../../../styles/shared/SuccessMessage";
 
 export const Section = styled(SectionUnderHeader)`
   margin: 0 auto;
@@ -64,8 +65,6 @@ export const Error = styled(FormErrorMessage)`
   margin: 0px 0px 10px 10px;
 `;
 
-export const SuccessMessage = styled.div`
-  color: green;
-  font-size: 14px;
+export const Success = styled(SuccessMessage)`
   margin: 10px 0px 0px 5px;
 `;
