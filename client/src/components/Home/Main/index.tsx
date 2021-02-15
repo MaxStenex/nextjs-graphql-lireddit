@@ -3,12 +3,17 @@ import { Wrapper } from "./styled";
 
 import { Posts } from "../Posts";
 import { CreatePost } from "../CreatePost";
+import { PostsQuery } from "../../../generated/apollo";
 
-export const Main = () => {
+type Props = {
+  postsQuery: PostsQuery;
+};
+
+export const Main: React.FC<Props> = ({ postsQuery }) => {
   return (
     <Wrapper>
       <CreatePost />
-      <Posts />
+      <Posts postsQuery={postsQuery} />
     </Wrapper>
   );
 };

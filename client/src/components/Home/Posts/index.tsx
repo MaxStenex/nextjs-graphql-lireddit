@@ -1,16 +1,24 @@
 import React from "react";
 import { Wrapper } from "./styled";
 import { Post } from "../Post";
+import { PostsQuery } from "../../../generated/apollo";
 
-export const Posts = () => {
+type Props = {
+  postsQuery: PostsQuery;
+};
+
+export const Posts: React.FC<Props> = ({ postsQuery }) => {
   return (
     <Wrapper>
-      <Post
-        creator="Maxim"
-        title="Ant Design Library GONE!?"
-        shortText="Does anyone know what happend to ant design? Their entire site and github repo
-            are gone. 404. Im freaking out"
-      />
+      {postsQuery.posts.map((post) => (
+        <Post
+          key={post.id}
+          creatorUsername={post.creator.username}
+          title={post.title}
+          shortText={post.shortText}
+          votesCount={post.votesCount}
+        />
+      ))}
     </Wrapper>
   );
 };

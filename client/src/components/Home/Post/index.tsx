@@ -17,26 +17,32 @@ import {
 } from "./styled";
 
 type Props = {
-  creator: string;
+  creatorUsername: string;
   title: string;
   shortText: string;
+  votesCount: number;
 };
 
-export const Post: React.FC<Props> = ({ creator, title, shortText }) => {
+export const Post: React.FC<Props> = ({
+  creatorUsername,
+  title,
+  shortText,
+  votesCount,
+}) => {
   return (
     <Wrapper>
       <VotesSection>
         <VoteButton>
           <VoteUpImage src={require("../../../images/Home/vote-arrow.svg")} />
         </VoteButton>
-        <VoteCount>175</VoteCount>
+        <VoteCount>{votesCount}</VoteCount>
         <VoteButton>
           <VoteDownImage src={require("../../../images/Home/vote-arrow.svg")} />
         </VoteButton>
       </VotesSection>
       <MainSection>
         <Header>
-          <PostedBy>Posted by {creator} 17 hours ago</PostedBy>
+          <PostedBy>Posted by {creatorUsername} 17 hours ago</PostedBy>
           <Title>{title}</Title>
         </Header>
         <TextAndFooterWrapper>

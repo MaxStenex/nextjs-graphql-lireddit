@@ -49,6 +49,7 @@ export const VoteDownImage = styled(VoteUpImage)`
 export const VoteCount = styled.div`
   font-weight: 700;
   margin: 5px 0px;
+  text-align: center;
 `;
 
 export const MainSection = styled.div`
