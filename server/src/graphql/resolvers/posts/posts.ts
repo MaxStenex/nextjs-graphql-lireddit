@@ -13,7 +13,7 @@ export class PostsResolver {
   }
 
   @FieldResolver(() => VoteTypes)
-  userVoteType(@Root() post: Post): VoteTypes {
+  currentUserVoteType(@Root() post: Post): VoteTypes {
     return VoteTypes.NONE;
   }
 
@@ -21,6 +21,6 @@ export class PostsResolver {
   async posts(): Promise<Post[]> {
     const posts = await Post.find({ relations: ["creator"] });
 
-    return posts;
+    return posts.sort((a, b) => +b.createdAt - +a.createdAt);
   }
 }

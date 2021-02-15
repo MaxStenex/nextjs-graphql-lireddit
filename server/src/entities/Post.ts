@@ -52,7 +52,7 @@ export class Post extends BaseEntity {
   creator: User;
 
   @Field(() => VoteTypes)
-  userVoteType: VoteTypes;
+  currentUserVoteType: VoteTypes;
 
   @Field()
   @Column({ default: 0 })

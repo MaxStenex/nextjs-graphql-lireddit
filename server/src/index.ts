@@ -13,6 +13,7 @@ import { LoginResolver } from "./graphql/resolvers/user/login";
 import { MeResolver } from "./graphql/resolvers/user/me";
 import { CreatePostResolver } from "./graphql/resolvers/posts/createPost";
 import { PostsResolver } from "./graphql/resolvers/posts/posts";
+import { VoteResolver } from "./graphql/resolvers/vote/voteResolver";
 
 const main = async () => {
   await createConnection();
@@ -24,6 +25,7 @@ const main = async () => {
       MeResolver,
       PostsResolver,
       CreatePostResolver,
+      VoteResolver,
     ],
   });
 

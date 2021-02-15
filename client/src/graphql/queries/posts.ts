@@ -8,7 +8,7 @@ export const postsQuery = gql`
       shortText
       createdAt
       votesCount
-      userVoteType
+      currentUserVoteType
       creator {
         username
       }
