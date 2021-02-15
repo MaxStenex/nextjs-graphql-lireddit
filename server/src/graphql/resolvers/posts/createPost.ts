@@ -19,7 +19,7 @@ export class CreatePostResolver {
       throw new Error("Not authenticated");
     }
     const post = Post.create({ title, text });
-    post.user = creator;
+    post.creator = creator;
     await validateOrReject(post);
     await post.save();
 
