@@ -1,4 +1,5 @@
-import { Resolver, Mutation, Arg, Ctx, UseMiddleware } from "type-graphql";
+import { Resolver, Mutation, Arg, Ctx, UseMiddleware, Int } from "type-graphql";
+import { getConnection } from "typeorm";
 import { Post } from "../../../entities/Post";
 import { User } from "../../../entities/User";
 import { Vote, VoteTypes } from "../../../entities/Vote";
@@ -8,12 +9,12 @@ import { MyContext } from "../../../types/MyContext";
 @Resolver()
 export class VoteResolver {
   @UseMiddleware(isAuth)
-  @Mutation(() => Vote)
+  @Mutation(() => Int)
   async vote(
     @Arg("voteType", (type) => VoteTypes) voteType: VoteTypes,
     @Arg("postId") postId: number,
     @Ctx() ctx: MyContext
-  ): Promise<Vote> {
+  ): Promise<number> {
     const userId = ctx.req.session.userId;
     const user = await User.findOne(userId);
     if (!user) {
@@ -25,17 +26,53 @@ export class VoteResolver {
       throw new Error("Post not found");
     }
 
-    const vote = Vote.create({ type: voteType });
-    vote.post = post;
-    vote.user = user;
-    if (voteType === VoteTypes.UP) {
-      post.votesCount = post.votesCount + 1;
-    }
-    if (voteType === VoteTypes.DOWN) {
-      post.votesCount = post.votesCount - 1;
-    }
-    await Promise.all([post.save(), vote.save()]);
+    const voteOnCurrentPostByUser = await getConnection()
+      .createQueryBuilder<Vote>("vote", "vote")
+      .leftJoinAndSelect("vote.post", "post")
+      .where(`post.id = ${postId}`)
+      .getOne();
+    const sameUserVote =
+      voteOnCurrentPostByUser && voteOnCurrentPostByUser.type === voteType;
 
-    return vote;
+    if (voteType === VoteTypes.NONE) {
+      return post.votesCount;
+    }
+
+    if (voteType === VoteTypes.UP) {
+      if (sameUserVote) {
+        post.votesCount = post.votesCount - 1;
+      } else if (voteOnCurrentPostByUser) {
+        post.votesCount = post.votesCount + 2;
+      } else {
+        post.votesCount = post.votesCount + 1;
+      }
+    }
+
+    if (voteType === VoteTypes.DOWN) {
+      if (sameUserVote) {
+        post.votesCount = post.votesCount + 1;
+      } else if (voteOnCurrentPostByUser) {
+        post.votesCount = post.votesCount - 2;
+      } else {
+        post.votesCount = post.votesCount - 1;
+      }
+    }
+
+    if (!voteOnCurrentPostByUser) {
+      const vote = Vote.create({ type: voteType });
+      vote.post = post;
+      vote.user = user;
+      await Promise.all([post.save(), vote.save()]);
+      return post.votesCount;
+    }
+
+    if (!sameUserVote) {
+      voteOnCurrentPostByUser.type = voteType;
+      await Promise.all([post.save(), voteOnCurrentPostByUser.save()]);
+      return post.votesCount;
+    }
+
+    await Promise.all([post.save(), voteOnCurrentPostByUser.remove()]);
+    return post.votesCount;
   }
 }

@@ -89,7 +89,7 @@ export const PopupFooterLink = styled.a`
 `;
 
 export const PopupFooterText = styled.span`
-  font-size: 17px;
+  font-size: 16px;
 `;
 
 export const PopupFooterIcon = styled.img`
@@ -103,6 +103,8 @@ export const LogoutButton = styled.button`
   background-color: transparent;
   border-top: 1px solid #ccc;
   display: flex;
+  align-items: center;
+
   &:hover {
     background-color: #0079d3;
     color: #fff;

@@ -23,27 +23,37 @@ export const VotesSection = styled.div`
   border-radius: 5px 0px 0px 5px;
 `;
 
-export const VoteButton = styled.button`
+export const VoteUpButton = styled.button`
+  height: 25px;
   font-size: 10px;
   background-color: transparent;
-`;
-
-export const VoteUpImage = styled.img`
-  height: 25px;
+  user-select: none;
   padding: 4px;
   &:hover,
   &:focus {
-    background-color: #fd4500;
-    transition: 0.2s;
+    &:not(:disabled) {
+      background-color: #fd4500;
+      transition: 0.2s;
+    }
   }
+`;
+
+export const VoteDownButton = styled(VoteUpButton)`
+  &:hover,
+  &:focus {
+    &:not(:disabled) {
+      background-color: #0079d3;
+      transition: 0.2s;
+    }
+  }
+`;
+
+export const VoteUpImage = styled.img`
+  height: 100%;
 `;
 
 export const VoteDownImage = styled(VoteUpImage)`
   transform: rotate(180deg);
-  &:hover,
-  &:focus {
-    background-color: #0079d3;
-  }
 `;
 
 export const VoteCount = styled.div`

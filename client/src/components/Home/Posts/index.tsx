@@ -10,10 +10,12 @@ type Props = {
 export const Posts: React.FC<Props> = ({ postsQuery }) => {
   return (
     <Wrapper>
-      {postsQuery.posts &&
+      {postsQuery &&
+        postsQuery.posts &&
         postsQuery.posts.map((post) => (
           <Post
             key={post.id}
+            id={post.id}
             creatorUsername={post.creator.username}
             title={post.title}
             shortText={post.shortText}
