@@ -1,5 +1,7 @@
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
+import { useLogoutMutation } from "../../../../generated/apollo";
+import { initializeApollo } from "../../../../lib/apollo";
 import {
   Wrapper,
   OpenOptionsButton,
@@ -25,6 +27,18 @@ type Props = {
 export const Options: React.FC<Props> = ({ username }) => {
   const [popupOpened, setPopupOpened] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
+  const [logoutMutation] = useLogoutMutation();
+  const apolloClient = initializeApollo();
+
+  const onLogoutButtonClick = async () => {
+    try {
+      await logoutMutation();
+      await apolloClient.cache.reset();
+      setPopupOpened(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     const clickHandler = (evt: any) => {
@@ -77,19 +91,19 @@ export const Options: React.FC<Props> = ({ username }) => {
           </OptionsBlock>
           <PopupFooter>
             {username ? (
-              <LogoutButton>
+              <LogoutButton onClick={onLogoutButtonClick}>
                 <PopupFooterIcon
                   src={require("../../../../images/Header/signup.svg")}
                 ></PopupFooterIcon>
                 <PopupFooterText>Logout</PopupFooterText>
               </LogoutButton>
             ) : (
-              <Link href="/register">
+              <Link href="/login">
                 <PopupFooterLink>
                   <PopupFooterIcon
                     src={require("../../../../images/Header/signup.svg")}
                   />
-                  <PopupFooterText>Sign up</PopupFooterText>
+                  <PopupFooterText>Login / Sign up</PopupFooterText>
                 </PopupFooterLink>
               </Link>
             )}

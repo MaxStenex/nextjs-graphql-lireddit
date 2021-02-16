@@ -17,6 +17,7 @@ import {
   VoteDownImage,
   VoteDownButton,
 } from "./styled";
+import { useRouter } from "next/router";
 
 type Props = {
   id: number;
@@ -33,12 +34,16 @@ export const Post: React.FC<Props> = ({
   shortText,
   votesCount,
 }) => {
+  const router = useRouter();
   const [voteMutation, { loading, data }] = useVoteMutation();
+
   const vote = async (postId: number, voteType: VoteTypes) => {
     try {
       await voteMutation({ variables: { postId, voteType } });
     } catch (error) {
-      console.error(error);
+      if (error.message === "Not authenticated") {
+        router.push("/login");
+      }
     }
   };
 
@@ -49,7 +54,9 @@ export const Post: React.FC<Props> = ({
           <VoteUpImage src={require("../../../images/Home/vote-arrow.svg")} />
         </VoteUpButton>
         <VoteCount>
-          {(loading && "...") || (data?.vote && +data.vote) || votesCount}
+          {(loading && "...") ||
+            (typeof data?.vote === "number" && data.vote) ||
+            votesCount}
         </VoteCount>
         <VoteDownButton disabled={loading} onClick={() => vote(id, VoteTypes.Down)}>
           <VoteDownImage src={require("../../../images/Home/vote-arrow.svg")} />

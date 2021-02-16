@@ -14,6 +14,7 @@ import { MeResolver } from "./graphql/resolvers/user/me";
 import { CreatePostResolver } from "./graphql/resolvers/posts/createPost";
 import { PostsResolver } from "./graphql/resolvers/posts/posts";
 import { VoteResolver } from "./graphql/resolvers/vote/voteResolver";
+import { LogoutResolver } from "./graphql/resolvers/user/logout";
 
 const main = async () => {
   await createConnection();
@@ -26,10 +27,11 @@ const main = async () => {
       PostsResolver,
       CreatePostResolver,
       VoteResolver,
+      LogoutResolver,
     ],
   });
 
-  const server = new ApolloServer({ schema, context: ({ req }) => ({ req }) });
+  const server = new ApolloServer({ schema, context: ({ req, res }) => ({ req, res }) });
   const app = express();
 
   const RedisStore = connectRedis(session);
