@@ -23,10 +23,10 @@ export const VotesSection = styled.div`
   border-radius: 5px 0px 0px 5px;
 `;
 
-export const VoteUpButton = styled.button`
+export const VoteUpButton = styled.button<{ voted: boolean }>`
   height: 25px;
   font-size: 10px;
-  background-color: transparent;
+  background-color: ${(props) => (props.voted ? "#fd4500" : "transparent")};
   user-select: none;
   padding: 4px;
   &:hover,
@@ -39,6 +39,7 @@ export const VoteUpButton = styled.button`
 `;
 
 export const VoteDownButton = styled(VoteUpButton)`
+  background-color: ${(props) => (props.voted ? "#0079d3" : "transparent")};
   &:hover,
   &:focus {
     &:not(:disabled) {

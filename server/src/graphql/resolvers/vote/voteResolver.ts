@@ -30,6 +30,8 @@ export class VoteResolver {
       .createQueryBuilder<Vote>("vote", "vote")
       .leftJoinAndSelect("vote.post", "post")
       .where(`post.id = ${postId}`)
+      .leftJoinAndSelect("vote.user", "user")
+      .andWhere(`user.id = ${userId}`)
       .getOne();
     const sameUserVote =
       voteOnCurrentPostByUser && voteOnCurrentPostByUser.type === voteType;

@@ -25,6 +25,7 @@ type Props = {
   title: string;
   shortText: string;
   votesCount: number;
+  voteType: VoteTypes;
 };
 
 export const Post: React.FC<Props> = ({
@@ -33,6 +34,7 @@ export const Post: React.FC<Props> = ({
   title,
   shortText,
   votesCount,
+  voteType,
 }) => {
   const router = useRouter();
   const [voteMutation, { loading, data }] = useVoteMutation();
@@ -50,15 +52,23 @@ export const Post: React.FC<Props> = ({
   return (
     <Wrapper>
       <VotesSection>
-        <VoteUpButton disabled={loading} onClick={() => vote(id, VoteTypes.Up)}>
+        <VoteUpButton
+          voted={voteType === VoteTypes.Up}
+          disabled={loading}
+          onClick={() => vote(id, VoteTypes.Up)}
+        >
           <VoteUpImage src={require("../../../images/Home/vote-arrow.svg")} />
         </VoteUpButton>
         <VoteCount>
           {(loading && "...") ||
-            (typeof data?.vote === "number" && data.vote) ||
+            (typeof data?.vote === "number" && `${data.vote}`) ||
             votesCount}
         </VoteCount>
-        <VoteDownButton disabled={loading} onClick={() => vote(id, VoteTypes.Down)}>
+        <VoteDownButton
+          voted={voteType === VoteTypes.Down}
+          disabled={loading}
+          onClick={() => vote(id, VoteTypes.Down)}
+        >
           <VoteDownImage src={require("../../../images/Home/vote-arrow.svg")} />
         </VoteDownButton>
       </VotesSection>

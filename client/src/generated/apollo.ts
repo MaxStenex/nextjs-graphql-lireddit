@@ -38,6 +38,7 @@ export type Post = {
   creator: User;
   currentUserVoteType: VoteTypes;
   votesCount: Scalars["Float"];
+  votedByUser: Scalars["Boolean"];
   createdAt: Scalars["String"];
 };
 
@@ -130,7 +131,13 @@ export type PostsQuery = { __typename?: "Query" } & {
   posts: Array<
     { __typename?: "Post" } & Pick<
       Post,
-      "id" | "title" | "shortText" | "createdAt" | "votesCount" | "currentUserVoteType"
+      | "id"
+      | "title"
+      | "shortText"
+      | "createdAt"
+      | "votesCount"
+      | "currentUserVoteType"
+      | "votedByUser"
     > & { creator: { __typename?: "User" } & Pick<User, "username"> }
   >;
 };
@@ -401,6 +408,7 @@ export const PostsDocument = gql`
       createdAt
       votesCount
       currentUserVoteType
+      votedByUser
       creator {
         username
       }

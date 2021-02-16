@@ -1,3 +1,4 @@
+import { GetServerSideProps } from "next";
 import { Main } from "../components/Home/Main";
 import { Header } from "../components/shared/Header";
 import { PostsDocument, PostsQuery } from "../generated/apollo";
@@ -16,9 +17,9 @@ const Home: React.FC<Props> = ({ postsQuery }) => {
   );
 };
 
-export const getServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
-    const apolloClient = initializeApollo();
+    const apolloClient = initializeApollo({}, context);
     const response = await apolloClient.query<PostsQuery>({
       query: PostsDocument,
     });

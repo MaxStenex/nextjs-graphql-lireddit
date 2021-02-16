@@ -22,7 +22,6 @@ export class LoginResolver {
     }
 
     ctx.req.session.userId = user.id;
-
     return user;
   }
 }

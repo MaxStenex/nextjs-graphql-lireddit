@@ -6,6 +6,13 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { isBrowser } from "./isBrowser";
+import { IncomingMessage, ServerResponse } from "http";
+import cookie from "cookie";
+
+type ContextType = {
+  req: IncomingMessage;
+  res: ServerResponse;
+};
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
 
@@ -13,10 +20,14 @@ if (!isBrowser) {
   global.fetch = fetch;
 }
 
-function createApolloClient() {
+function createApolloClient(context?: ContextType) {
+  const authCookie = cookie.parse(context?.req.headers.cookie || "").sid;
   const httpLink = createHttpLink({
     uri: "http://localhost:4000/graphql",
     credentials: "include",
+    headers: {
+      cookie: authCookie ? `sid=${authCookie}` : "",
+    },
   });
 
   return new ApolloClient({
@@ -26,8 +37,8 @@ function createApolloClient() {
   });
 }
 
-export function initializeApollo(initialState: any = null) {
-  const _apolloClient = apolloClient ?? createApolloClient();
+export function initializeApollo(initialState: any = null, context?: ContextType) {
+  const _apolloClient = apolloClient ?? createApolloClient(context);
 
   if (initialState) {
     _apolloClient.cache.restore(initialState);

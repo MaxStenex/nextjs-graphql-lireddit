@@ -6,12 +6,12 @@ export class LogoutResolver {
   @Mutation(() => Boolean)
   async logout(@Ctx() ctx: MyContext): Promise<Boolean> {
     return new Promise((res, rej) =>
-      ctx.req.session!.destroy((err) => {
+      ctx.req.session.destroy((err) => {
         if (err) {
           return rej(false);
         }
 
-        ctx.res.clearCookie("qid");
+        ctx.res.clearCookie("sid");
         return res(true);
       })
     );

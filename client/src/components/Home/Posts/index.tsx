@@ -20,6 +20,7 @@ export const Posts: React.FC<Props> = ({ postsQuery }) => {
             title={post.title}
             shortText={post.shortText}
             votesCount={post.votesCount}
+            voteType={post.currentUserVoteType}
           />
         ))}
     </Wrapper>
