@@ -1,13 +1,12 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.article`
+export const Wrapper = styled.article<{ isPostPage?: boolean }>`
   display: flex;
   border-radius: 5px;
   border: 1px solid #ccc;
   margin-top: 30px;
-  min-height: 200px;
+  min-height: ${(props) => (props.isPostPage ? "300px" : "200px")};
   background-color: #fff;
-  cursor: pointer;
   &:hover,
   &:focus {
     border: 1px solid #767676;
@@ -63,7 +62,9 @@ export const VoteCount = styled.div`
   text-align: center;
 `;
 
-export const MainSection = styled.div`
+export const MainSection = styled.div<{ isPostPage?: boolean }>`
+  cursor: ${(props) => (props.isPostPage ? "auto" : "pointer")};
+
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -74,6 +75,14 @@ export const Header = styled.div``;
 export const PostedBy = styled.div`
   color: #838789;
   font-size: 13px;
+`;
+
+export const Username = styled.span`
+  cursor: pointer;
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
 `;
 
 export const Title = styled.h2`
@@ -91,6 +100,8 @@ export const TextAndFooterWrapper = styled.div`
 export const Text = styled.p`
   flex: 1;
   margin-top: 10px;
+  word-break: break-all;
+  line-height: 1.3;
 `;
 
 export const Footer = styled.div``;
@@ -99,4 +110,5 @@ export const Comments = styled.div`
   color: #838789;
   font-size: 12px;
   font-weight: 700;
+  margin-top: 20px;
 `;

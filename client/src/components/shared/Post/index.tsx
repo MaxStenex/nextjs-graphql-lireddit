@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useVoteMutation, VoteTypes } from "../../../generated/apollo";
 import {
   Wrapper,
@@ -16,6 +16,7 @@ import {
   VoteUpImage,
   VoteDownImage,
   VoteDownButton,
+  Username,
 } from "./styled";
 import { useRouter } from "next/router";
 
@@ -23,9 +24,11 @@ type Props = {
   id: number;
   creatorUsername: string;
   title: string;
-  shortText: string;
+  shortText?: string;
+  text?: string;
   votesCount: number;
   voteType: VoteTypes;
+  isPostPage?: boolean;
 };
 
 export const Post: React.FC<Props> = ({
@@ -35,13 +38,21 @@ export const Post: React.FC<Props> = ({
   shortText,
   votesCount,
   voteType,
+  text,
+  isPostPage,
 }) => {
   const router = useRouter();
   const [voteMutation, { loading, data }] = useVoteMutation();
+  const [currentVoteType, setCurrentVoteType] = useState(voteType);
 
   const vote = async (postId: number, voteType: VoteTypes) => {
     try {
       await voteMutation({ variables: { postId, voteType } });
+      // if user unvote
+      if (currentVoteType !== voteType) {
+        return setCurrentVoteType(voteType);
+      }
+      setCurrentVoteType(VoteTypes.None);
     } catch (error) {
       if (error.message === "Not authenticated") {
         router.push("/login");
@@ -49,11 +60,17 @@ export const Post: React.FC<Props> = ({
     }
   };
 
+  const redirectToPostPage = (postId: number) => {
+    if (!isPostPage) {
+      router.push(`/post/${postId}`);
+    }
+  };
+
   return (
-    <Wrapper>
+    <Wrapper isPostPage={isPostPage}>
       <VotesSection>
         <VoteUpButton
-          voted={voteType === VoteTypes.Up}
+          voted={currentVoteType === VoteTypes.Up}
           disabled={loading}
           onClick={() => vote(id, VoteTypes.Up)}
         >
@@ -65,20 +82,22 @@ export const Post: React.FC<Props> = ({
             votesCount}
         </VoteCount>
         <VoteDownButton
-          voted={voteType === VoteTypes.Down}
+          voted={currentVoteType === VoteTypes.Down}
           disabled={loading}
           onClick={() => vote(id, VoteTypes.Down)}
         >
           <VoteDownImage src={require("../../../images/Home/vote-arrow.svg")} />
         </VoteDownButton>
       </VotesSection>
-      <MainSection>
+      <MainSection isPostPage={isPostPage} onClick={() => redirectToPostPage(id)}>
         <Header>
-          <PostedBy>Posted by {creatorUsername} 17 hours ago</PostedBy>
+          <PostedBy>
+            Posted by <Username>{creatorUsername}</Username> 17 hours ago
+          </PostedBy>
           <Title>{title}</Title>
         </Header>
         <TextAndFooterWrapper>
-          <Text>{shortText}</Text>
+          <Text>{shortText || text}</Text>
           <Footer>
             <Comments>153 comments</Comments>
           </Footer>

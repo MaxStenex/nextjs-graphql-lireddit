@@ -1,6 +1,6 @@
 import React from "react";
 import { Wrapper } from "./styled";
-import { Post } from "../Post";
+import { Post } from "../../shared/Post";
 import { PostsQuery } from "../../../generated/apollo";
 
 type Props = {
