@@ -6,30 +6,13 @@ import connectRedis from "connect-redis";
 import Redis from "ioredis";
 
 import { ApolloServer } from "apollo-server-express";
-import { buildSchema } from "type-graphql";
 import { createConnection } from "typeorm";
-import { RegisterResolver } from "./graphql/resolvers/user/register";
-import { LoginResolver } from "./graphql/resolvers/user/login";
-import { MeResolver } from "./graphql/resolvers/user/me";
-import { CreatePostResolver } from "./graphql/resolvers/posts/createPost";
-import { PostsResolver } from "./graphql/resolvers/posts/posts";
-import { VoteResolver } from "./graphql/resolvers/vote/voteResolver";
-import { LogoutResolver } from "./graphql/resolvers/user/logout";
+import { createSchema } from "./utils/createSchema";
 
 const main = async () => {
   await createConnection();
 
-  const schema = await buildSchema({
-    resolvers: [
-      RegisterResolver,
-      LoginResolver,
-      MeResolver,
-      PostsResolver,
-      CreatePostResolver,
-      VoteResolver,
-      LogoutResolver,
-    ],
-  });
+  const schema = await createSchema();
 
   const server = new ApolloServer({ schema, context: ({ req, res }) => ({ req, res }) });
   const app = express();

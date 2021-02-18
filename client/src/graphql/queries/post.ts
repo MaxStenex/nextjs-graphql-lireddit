@@ -1,15 +1,16 @@
 import { gql } from "@apollo/client";
 
-export const postsQuery = gql`
-  query Posts {
-    posts {
+export const postQuery = gql`
+  query Post($postId: Float!) {
+    post(postId: $postId) {
       id
       title
-      shortText
+      text
       createdAt
-      votesCount
       currentUserVoteType
+      votesCount
       creator {
+        id
         username
       }
     }

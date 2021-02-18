@@ -64,7 +64,7 @@ export const VoteCount = styled.div`
 
 export const MainSection = styled.div<{ isPostPage?: boolean }>`
   cursor: ${(props) => (props.isPostPage ? "auto" : "pointer")};
-
+  width: 100%;
   padding: 10px;
   display: flex;
   flex-direction: column;

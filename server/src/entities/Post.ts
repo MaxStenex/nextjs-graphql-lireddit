@@ -62,9 +62,6 @@ export class Post extends BaseEntity {
   votes: Vote[];
 
   @Field()
-  votedByUser: boolean;
-
-  @Field()
   @CreateDateColumn()
   createdAt: string;
 }

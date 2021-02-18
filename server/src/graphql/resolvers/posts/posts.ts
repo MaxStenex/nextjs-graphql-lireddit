@@ -36,27 +36,8 @@ export class PostsResolver {
     return userVote.type;
   }
 
-  @FieldResolver(() => Boolean)
-  async votedByUser(@Root() post: Post, @Ctx() ctx: MyContext): Promise<boolean> {
-    const userId = ctx.req.session.userId;
-    if (!userId) {
-      return false;
-    }
-    const votedByUser = await getConnection()
-      .createQueryBuilder<Vote>("vote", "vote")
-      .leftJoinAndSelect("vote.user", "user")
-      .where(`user.id = ${userId}`)
-      .leftJoinAndSelect("vote.post", "post")
-      .andWhere(`post.id = ${post.id}`)
-      .getOne();
-    if (votedByUser) {
-      return true;
-    }
-    return false;
-  }
-
   @Query(() => [Post])
-  async posts(@Ctx() ctx: MyContext): Promise<Post[]> {
+  async posts(): Promise<Post[]> {
     const posts = await Post.find({ relations: ["creator"] });
 
     return posts.sort((a, b) => +b.createdAt - +a.createdAt);
