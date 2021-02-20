@@ -12,6 +12,7 @@ import {
 import { User } from "./User";
 import { Vote, VoteTypes } from "./Vote";
 import { registerEnumType } from "type-graphql";
+import { Comment } from "./Comment";
 
 registerEnumType(VoteTypes, {
   name: "VoteTypes",
@@ -54,12 +55,20 @@ export class Post extends BaseEntity {
   @Field(() => VoteTypes)
   currentUserVoteType: VoteTypes;
 
+  @OneToMany(() => Vote, (vote) => vote.post)
+  votes: Vote[];
+
   @Field()
   @Column({ default: 0 })
   votesCount: number;
 
-  @OneToMany(() => Vote, (vote) => vote.post)
-  votes: Vote[];
+  @Field(() => [Comment])
+  @OneToMany(() => Comment, (comment) => comment.post)
+  comments: Comment[];
+
+  @Field()
+  @Column({ default: 0 })
+  commentsCount: number;
 
   @Field()
   @CreateDateColumn()

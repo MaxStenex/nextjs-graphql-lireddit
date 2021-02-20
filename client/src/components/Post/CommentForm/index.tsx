@@ -1,6 +1,7 @@
-import { Formik } from "formik";
+import { Formik, ErrorMessage } from "formik";
 import React from "react";
-import { useMeQuery } from "../../../generated/apollo";
+import { useCreateCommentMutation, useMeQuery } from "../../../generated/apollo";
+import { createCommentSchema } from "../../../utils/validaton/createComment";
 import {
   Wrapper,
   Title,
@@ -9,10 +10,16 @@ import {
   TextOfComment,
   FormFooter,
   SubmitButton,
+  Error,
 } from "./styled";
 
-export const CommentForm = () => {
+type Props = {
+  postId: number;
+};
+
+export const CommentForm: React.FC<Props> = ({ postId }) => {
   const { data } = useMeQuery();
+  const [createComment] = useCreateCommentMutation();
 
   return (
     <Wrapper>
@@ -21,8 +28,17 @@ export const CommentForm = () => {
       </Title>
       <Formik
         initialValues={{ text: "" }}
-        onSubmit={(values) => {
-          console.log(values);
+        validationSchema={createCommentSchema}
+        onSubmit={async ({ text }, { resetForm }) => {
+          try {
+            await createComment({
+              variables: {
+                text,
+                postId,
+              },
+            });
+            resetForm();
+          } catch {}
         }}
       >
         {({ getFieldProps }) => (
@@ -32,6 +48,7 @@ export const CommentForm = () => {
               placeholder="What are your thoughts?"
             />
             <FormFooter>
+              <ErrorMessage name="text">{(err) => <Error>{err}</Error>}</ErrorMessage>
               <SubmitButton type="submit">Comment</SubmitButton>
             </FormFooter>
           </StyledForm>

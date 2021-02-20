@@ -2,6 +2,7 @@ import { Field, ObjectType } from "type-graphql";
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from "typeorm";
 import { Post } from "./Post";
 import { Vote } from "./Vote";
+import { Comment } from "./Comment";
 
 @ObjectType()
 @Entity()
@@ -26,4 +27,7 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Post, (post) => post.creator)
   posts: Post[];
+
+  @OneToMany(() => Comment, (comment) => comment.creator)
+  comments: Comment[];
 }

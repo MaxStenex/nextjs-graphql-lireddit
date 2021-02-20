@@ -10,35 +10,35 @@ import {
   Username,
 } from "./styled";
 
-export const Comments = () => {
+type CommentType = {
+  id: number;
+  text: string;
+  createdAt: number;
+  creatorUsername: string;
+};
+
+type Props = {
+  comments: Array<CommentType>;
+};
+
+export const Comments: React.FC<Props> = ({ comments }) => {
   return (
     <Wrapper>
-      <CommentsList>
-        <Comment>
-          <UserAvatar alt="#" src={require("../../../images/user.svg")} />
-          <CommentMain>
-            <CommentHeader>
-              <Username>MaximRozinkevich</Username> 7 hours ago
-            </CommentHeader>
-            <CommentText>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam aut nemo
-              esse excepturi dolore sed!
-            </CommentText>
-          </CommentMain>
-        </Comment>
-        <Comment>
-          <UserAvatar alt="#" src={require("../../../images/user.svg")} />
-          <CommentMain>
-            <CommentHeader>
-              <Username>MaximRozinkevich</Username> 7 hours ago
-            </CommentHeader>
-            <CommentText>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam aut nemo
-              esse excepturi dolore sed!
-            </CommentText>
-          </CommentMain>
-        </Comment>
-      </CommentsList>
+      {comments.length > 0 && (
+        <CommentsList>
+          {comments.map((comment) => (
+            <Comment key={comment.id}>
+              <UserAvatar alt="#" src={require("../../../images/user.svg")} />
+              <CommentMain>
+                <CommentHeader>
+                  <Username>{comment.creatorUsername}</Username> 7 hours ago
+                </CommentHeader>
+                <CommentText>{comment.text}</CommentText>
+              </CommentMain>
+            </Comment>
+          ))}
+        </CommentsList>
+      )}
     </Wrapper>
   );
 };

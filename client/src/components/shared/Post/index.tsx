@@ -29,6 +29,7 @@ type Props = {
   votesCount: number;
   voteType: VoteTypes;
   isPostPage?: boolean;
+  commentsCount: number;
 };
 
 export const Post: React.FC<Props> = ({
@@ -40,6 +41,7 @@ export const Post: React.FC<Props> = ({
   voteType,
   text,
   isPostPage,
+  commentsCount,
 }) => {
   const router = useRouter();
   const [voteMutation, { loading, data }] = useVoteMutation();
@@ -99,7 +101,7 @@ export const Post: React.FC<Props> = ({
         <TextAndFooterWrapper>
           <Text>{shortText || text}</Text>
           <Footer>
-            <Comments>153 comments</Comments>
+            <Comments>{commentsCount || "0"} comments</Comments>
           </Footer>
         </TextAndFooterWrapper>
       </MainSection>

@@ -9,6 +9,7 @@ export const postsQuery = gql`
       createdAt
       votesCount
       currentUserVoteType
+      commentsCount
       creator {
         username
       }

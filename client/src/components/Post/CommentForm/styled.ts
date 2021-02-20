@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Form } from "formik";
+import { FormErrorMessage } from "../../../styles/shared/FormErrorMessage";
 
 export const Wrapper = styled.div`
   max-width: 90%;
@@ -32,7 +33,7 @@ export const TextOfComment = styled.textarea`
   padding: 6px 10px;
   resize: vertical;
   min-height: 125px;
-  max-height: 300px;
+  max-height: 200px;
   &:focus {
     border: 1px solid #000;
   }
@@ -40,9 +41,10 @@ export const TextOfComment = styled.textarea`
 
 export const FormFooter = styled.div`
   display: flex;
+  justify-content: space-between;
   background-color: #e8e8e8;
+  align-items: center;
   padding: 8px 15px;
-  flex-flow: row-reverse;
   border: 1px solid #ccc;
   border-top: none;
 `;
@@ -53,9 +55,12 @@ export const SubmitButton = styled.button`
   background-color: #be2f2f;
   color: #fff;
   font-size: 15px;
+  margin-left: auto;
   &:hover,
   &:focus {
     background-color: #ff7c7c;
     transition: 0.2s;
   }
 `;
+
+export const Error = styled(FormErrorMessage)``;

@@ -7,7 +7,7 @@ import Redis from "ioredis";
 
 import { ApolloServer } from "apollo-server-express";
 import { createConnection } from "typeorm";
-import { createSchema } from "./utils/createSchema";
+import { createSchema } from "./graphql/createSchema";
 
 const main = async () => {
   await createConnection();
