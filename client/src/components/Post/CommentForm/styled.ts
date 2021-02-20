@@ -4,7 +4,10 @@ import { FormErrorMessage } from "../../../styles/shared/FormErrorMessage";
 
 export const Wrapper = styled.div`
   max-width: 90%;
-  margin: 20px auto;
+  margin: 0px auto;
+  margin-top: 20px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #ccc;
 `;
 
 export const Title = styled.h3`

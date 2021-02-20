@@ -2,15 +2,13 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   margin-top: 20px;
-  border-top: 1px solid #ccc;
-  padding: 20px 0px;
 `;
 
 export const CommentsList = styled.ul``;
 
 export const Comment = styled.li`
   display: flex;
-  margin-bottom: 15px;
+  padding-bottom: 25px;
 `;
 
 export const CommentMain = styled.div`
