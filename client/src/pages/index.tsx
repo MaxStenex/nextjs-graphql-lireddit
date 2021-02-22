@@ -22,6 +22,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const apolloClient = initializeApollo({}, context);
     const response = await apolloClient.query<PostsQuery>({
       query: PostsDocument,
+      variables: { cursor: null, limit: 5 },
     });
 
     return {

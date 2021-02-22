@@ -1,4 +1,4 @@
-import { Ctx, FieldResolver, Query, Resolver, Root } from "type-graphql";
+import { Arg, Ctx, FieldResolver, Query, Resolver, Root } from "type-graphql";
 import { getConnection } from "typeorm";
 import { Post } from "../../../entities/Post";
 import { Vote, VoteTypes } from "../../../entities/Vote";
@@ -37,9 +37,33 @@ export class PostsResolver {
   }
 
   @Query(() => [Post])
-  async posts(): Promise<Post[]> {
-    const posts = await Post.find({ relations: ["creator"] });
+  async posts(
+    @Arg("cursor", { nullable: true }) cursorID?: number,
+    @Arg("limit") limit: number
+  ): Promise<Post[]> {
+    let posts;
+    if (!cursorID) {
+      posts = await getConnection()
+        .createQueryBuilder()
+        .select("post")
+        .from(Post, "post")
+        .orderBy("post.id", "DESC")
+        .leftJoinAndSelect("post.creator", "post_creator")
+        .limit(limit)
+        .getMany();
 
-    return posts.sort((a, b) => +b.createdAt - +a.createdAt);
+      return posts;
+    }
+    posts = await getConnection()
+      .createQueryBuilder()
+      .select("post")
+      .from(Post, "post")
+      .leftJoinAndSelect("post.creator", "post_creator")
+      .where(`post.id < ${cursorID}`)
+      .orderBy("post.id", "DESC")
+      .limit(limit)
+      .getMany();
+
+    return posts;
   }
 }
