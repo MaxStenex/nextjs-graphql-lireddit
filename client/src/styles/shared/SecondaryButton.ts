@@ -12,6 +12,6 @@ export const SecondaryButton = styled.button`
   &:hover,
   &:focus {
     transition: 0.2s;
-    background-color: #d6e6ff;
+    background-color: ${({ theme }) => theme.bg.hover.secondary};
   }
 `;

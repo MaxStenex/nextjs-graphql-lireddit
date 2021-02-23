@@ -10,12 +10,13 @@ export const Wrapper = styled.header`
   justify-content: space-between;
   height: 60px;
   box-sizing: border-box;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.block};
   font-size: 18px;
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 999;
+  border-bottom: 1px solid ${({ theme }) => theme.borderColor};
 `;
 
 export const Logo = styled.img`
@@ -24,6 +25,8 @@ export const Logo = styled.img`
   cursor: pointer;
   flex: 1;
   margin-right: 20px;
+  background-color: #fff;
+  border-radius: 20px;
 `;
 
 export const SearchInput = styled(DefaultInput)`

@@ -19,12 +19,24 @@ import {
   UserName,
   LogoutButton,
 } from "./styled";
+import useDarkMode from "use-dark-mode";
 
 type Props = {
   username: string | null;
 };
 
 export const Options: React.FC<Props> = ({ username }) => {
+  const darkMode = useDarkMode();
+  const toggleDarkMode = () => {
+    if (darkMode.value === true) {
+      darkMode.disable();
+      localStorage.removeItem("isDarkModeEnabled");
+    } else {
+      darkMode.enable();
+      localStorage.setItem("isDarkModeEnabled", "true");
+    }
+  };
+
   const [popupOpened, setPopupOpened] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
   const [logoutMutation] = useLogoutMutation();
@@ -76,7 +88,7 @@ export const Options: React.FC<Props> = ({ username }) => {
           <OptionsBlock>
             <OptionTitle>Mode</OptionTitle>
             <OptionList>
-              <OptionItem>
+              <OptionItem onClick={toggleDarkMode}>
                 <OptionText>Night mode</OptionText>
               </OptionItem>
             </OptionList>

@@ -23,23 +23,26 @@ export const OpenOptionsButton = styled.button<{ isAuthed: boolean }>`
 export const UserName = styled.div`
   font-size: 14px;
   margin-left: 5px;
+  color: ${({ theme }) => theme.fontColor.primary};
 `;
 
 export const OpenOptionsImage = styled.img`
   height: 25px;
+  background-color: #fff;
+  padding: 3px;
+  border-radius: 40%;
 `;
 
 export const Popup = styled.div`
   position: absolute;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.block};
   min-width: 180px;
   width: 100%;
   right: 0;
   top: calc(100% + 5px);
   border-radius: 3px;
-  border: 1px solid #ccc;
+  border: 1px solid ${({ theme }) => theme.borderColor};
   padding-top: 3px;
-  border-bottom: none;
 `;
 
 export const OptionsBlock = styled.div``;
@@ -60,11 +63,8 @@ export const OptionList = styled.ul`
 
 export const OptionItem = styled.li`
   &:hover {
-    background-color: #0079d3;
+    background-color: ${({ theme }) => theme.bg.primary};
     cursor: pointer;
-    & span {
-      color: #fff;
-    }
   }
 `;
 
@@ -72,6 +72,7 @@ export const OptionText = styled.span`
   font-size: 14px;
   padding: 12px 0px 12px 20px;
   display: block;
+  color: ${({ theme }) => theme.fontColor.primary};
 `;
 
 export const PopupFooter = styled.div``;
@@ -82,9 +83,9 @@ export const PopupFooterLink = styled.a`
   background-color: transparent;
   border-top: 1px solid #ccc;
   display: flex;
+  color: ${({ theme }) => theme.fontColor.primary};
   &:hover {
-    background-color: #0079d3;
-    color: #fff;
+    background-color: ${({ theme }) => theme.bg.primary};
   }
 `;
 
@@ -104,9 +105,8 @@ export const LogoutButton = styled.button`
   border-top: 1px solid #ccc;
   display: flex;
   align-items: center;
-
+  color: ${({ theme }) => theme.fontColor.primary};
   &:hover {
-    background-color: #0079d3;
-    color: #fff;
+    background-color: ${({ theme }) => theme.bg.primary};
   }
 `;

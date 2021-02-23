@@ -13,6 +13,6 @@ export const PrimaryButton = styled.button`
   &:hover,
   &:focus {
     transition: 0.2s;
-    background-color: #1784ff;
+    background-color: ${(props) => props.theme.bg.hover.primary};
   }
 `;
