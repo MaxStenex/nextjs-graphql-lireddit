@@ -1,6 +1,5 @@
 # Lireddit
-
-## This is my fullstack project, that i created with inspiration by Ben Awad (fullstack engineer).
+My fun realization of reddit.
 
 ### Frontend side.  
 On client side i chose nextjs for practicing SSR and styled-components for styling.  
