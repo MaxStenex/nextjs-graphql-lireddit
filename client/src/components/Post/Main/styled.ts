@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Wrapper = styled.main`
   min-height: 100vh;
-  background-color: #fafafa;
+  background-color: ${({ theme }) => theme.body};
   padding-top: 100px;
 `;
 

@@ -38,8 +38,8 @@ export class PostsResolver {
 
   @Query(() => [Post])
   async posts(
-    @Arg("cursor", { nullable: true }) cursorID?: number,
-    @Arg("limit") limit: number
+    @Arg("limit") limit: number,
+    @Arg("cursor", { nullable: true }) cursorID?: number
   ): Promise<Post[]> {
     let posts;
     if (!cursorID) {

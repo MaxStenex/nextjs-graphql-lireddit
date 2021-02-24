@@ -3,10 +3,11 @@ import styled from "styled-components";
 export const Wrapper = styled.article<{ isPostPage?: boolean }>`
   display: flex;
   border-radius: 5px;
-  border: 1px solid #ccc;
   margin-top: 30px;
   min-height: ${(props) => (props.isPostPage ? "300px" : "200px")};
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.block};
+  border: 1px solid ${({ theme }) => theme.borderColor};
+
   &:hover,
   &:focus {
     border: 1px solid #767676;
@@ -20,6 +21,7 @@ export const VotesSection = styled.div`
   padding: 10px;
   background-color: #f8f9fa;
   border-radius: 5px 0px 0px 5px;
+  background-color: ${({ theme }) => theme.block};
 `;
 
 export const VoteUpButton = styled.button<{ voted: boolean }>`
@@ -60,6 +62,7 @@ export const VoteCount = styled.div`
   font-weight: 700;
   margin: 5px 0px;
   text-align: center;
+  color: ${({ theme }) => theme.fontColor.primary};
 `;
 
 export const MainSection = styled.div<{ isPostPage?: boolean }>`
@@ -68,6 +71,7 @@ export const MainSection = styled.div<{ isPostPage?: boolean }>`
   padding: 10px;
   display: flex;
   flex-direction: column;
+  color: ${({ theme }) => theme.fontColor.primary};
 `;
 
 export const Header = styled.div``;

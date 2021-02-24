@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Wrapper,
-  Logo,
-  SearchInput,
-  OptionsWrapper,
-  LoginButton,
-  SignupButton,
-} from "./styled";
+import { Wrapper, Logo, OptionsWrapper, LoginButton, SignupButton } from "./styled";
 import NextLink from "next/link";
 import { Options } from "./Options";
 import { useMeQuery } from "../../../generated/apollo";
@@ -20,7 +13,6 @@ export const Header = () => {
       <NextLink href="/">
         <Logo src={require("../../../images/Header/logo.png")} alt="LiReddit" />
       </NextLink>
-      <SearchInput type="text" placeholder="Search..." />
       <OptionsWrapper>
         {!data?.me && (
           <>

@@ -9,6 +9,7 @@ export const CommentsList = styled.ul``;
 export const Comment = styled.li`
   display: flex;
   padding-bottom: 25px;
+  color: ${({ theme }) => theme.fontColor.primary};
 `;
 
 export const CommentMain = styled.div`
@@ -18,6 +19,9 @@ export const CommentMain = styled.div`
 export const UserAvatar = styled.img`
   width: 30px;
   height: 30px;
+  background-color: #fff;
+  padding: 4px;
+  border-radius: 6px;
 `;
 
 export const Username = styled.span`

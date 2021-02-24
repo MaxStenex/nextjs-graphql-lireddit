@@ -17,6 +17,7 @@ export const Title = styled.h2`
   padding-bottom: 20px;
   border-bottom: 1px solid #fff;
   font-size: 20px;
+  color: ${({ theme }) => theme.fontColor.primary};
 `;
 
 export const StyledForm = styled(Form)`

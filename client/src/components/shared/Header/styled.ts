@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { PrimaryButton } from "../../../styles/shared/PrimaryButton";
 import { SecondaryButton } from "../../../styles/shared/SecondaryButton";
-import { DefaultInput } from "../../../styles/shared/DefaultInput";
 
 export const Wrapper = styled.header`
   padding: 4px 10px;
@@ -27,12 +26,6 @@ export const Logo = styled.img`
   margin-right: 20px;
   background-color: #fff;
   border-radius: 20px;
-`;
-
-export const SearchInput = styled(DefaultInput)`
-  padding: 8px 8px 8px 13px;
-  flex: 1;
-  max-width: 550px;
 `;
 
 export const OptionsWrapper = styled.div`

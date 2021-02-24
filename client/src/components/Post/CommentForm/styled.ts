@@ -7,12 +7,13 @@ export const Wrapper = styled.div`
   margin: 0px auto;
   margin-top: 20px;
   padding-bottom: 30px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid ${({ theme }) => theme.borderColor};
 `;
 
 export const Title = styled.h3`
   font-size: 14px;
   font-weight: 500;
+  color: ${({ theme }) => theme.fontColor.primary};
 `;
 
 export const TitleUsernameLink = styled.a`
@@ -37,9 +38,6 @@ export const TextOfComment = styled.textarea`
   resize: vertical;
   min-height: 125px;
   max-height: 200px;
-  &:focus {
-    border: 1px solid #000;
-  }
 `;
 
 export const FormFooter = styled.div`
